@@ -2,23 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 using Aquarium.GA.Bodies;
 using Forever.Render.Cameras;
 using Forever.Render;
 
 using System.Timers;
-using Aquarium.GA.Organs;
 using Forever.Neural;
-using Aquarium.GA.Signals;
 using Aquarium.GA.Genomes;
 using Aquarium.GA.Phenotypes;
-using Aquarium.GA.GeneParsers;
 using Aquarium.GA.Codons;
 
 namespace Aquarium
@@ -91,8 +85,8 @@ namespace Aquarium
             {
                 RegisterBodyGenome(genome, body);
             }
-            
-            
+
+
             return body;
         }
 
@@ -120,7 +114,6 @@ namespace Aquarium
                     }
                 }
             }
-            var bak = 9;
         }
 
         public void SpawnBodyFromGenePool()
@@ -137,10 +130,10 @@ namespace Aquarium
             //parent2Gen is  some strange from general pop
             parent2Gen.Mutate(Random);
 
-            
+
             int minCount = Math.Min(parent1Gen.Size, parent2Gen.Size);
-            int wiggle = Random.Next(minCount/8);
-            int snip = (-wiggle + Random.Next(wiggle*2)) + (minCount / 2);
+            int wiggle = Random.Next(minCount / 8);
+            int snip = (-wiggle + Random.Next(wiggle * 2)) + (minCount / 2);
 
 
             var parent1Prefix = parent1Gen.Genes.Take(snip);
@@ -152,7 +145,7 @@ namespace Aquarium
             var offspring1Genes = parent1Prefix.Concat(parent2Suffix).ToList();
             var offspring2Genes = parent2Prefix.Concat(parent1Suffix).ToList();
 
-            
+
 
             PhenotypeReader gR = new PhenotypeReader();
             foreach (var genes in new[] { offspring1Genes, offspring2Genes })
@@ -178,7 +171,7 @@ namespace Aquarium
             if (c2 < c1) return false;
 
             // (genes / part) breaks the tie
-            double ratio1 =  g1.Genes.Count() / c1;
+            double ratio1 = g1.Genes.Count() / c1;
             double ratio2 = g2.Genes.Count() / c2;
             return ratio1 >= ratio2;
 
@@ -191,7 +184,7 @@ namespace Aquarium
             bool foundFit = false;
             for (int i = 0; i < BestGenomes.Count(); i++)
             {
-                if(AsFit(BestGenomes[i], BestBodies[i], genome, body))
+                if (AsFit(BestGenomes[i], BestBodies[i], genome, body))
                 {
                     BestBodies[i] = body;
                     BestGenomes[i] = genome;
@@ -248,10 +241,10 @@ namespace Aquarium
                     );
             };
             return new BodyGenome(gContents);
-            
+
         }
 
-        private IBodyPhenotype CreateRandomRawGenome(int numObjects  = 20)
+        private IBodyPhenotype CreateRandomRawGenome(int numObjects = 20)
         {
             var g = RandomGenome(9 * numObjects);
             return GenomeToPheno(g);
@@ -265,7 +258,7 @@ namespace Aquarium
             return parser.ParseBodyPhenotype(g, t);
         }
 
-        
+
         private IBodyPhenotype CreateHandCraftedPhenotype()
         {
             var g = new BodyPhenotype();
@@ -298,7 +291,7 @@ namespace Aquarium
             nog.NeuralNetworkGenome.Weights = tNet.GetWeights();
 
             partOne.OrganGenomes.Add(nog);
-            partOne.Scale = new Vector3(3f, 3f,  3f);
+            partOne.Scale = new Vector3(3f, 3f, 3f);
 
             partOne.BodyPartGeometryIndex = 0;
             for (int i = 0; i < 6; i++)
@@ -315,11 +308,11 @@ namespace Aquarium
                 nog.InputGenome = new NeuralInputSocketPhenotype { Channel = 0, ChanneledSignalGenome = chanSig2 };
                 nog.OutputGenome = new NeuralOutputSocketPhenotype { Channel = 0, ChanneledSignalGenome = chanSig0 };
 
-                 tNet = new NeuralNetwork(nog.NeuralNetworkGenome.NumInputs, nog.NeuralNetworkGenome.NumHidden, nog.NeuralNetworkGenome.NumOutputs);
+                tNet = new NeuralNetwork(nog.NeuralNetworkGenome.NumInputs, nog.NeuralNetworkGenome.NumHidden, nog.NeuralNetworkGenome.NumOutputs);
                 tNet.RandomizeWeights(Random);
                 nog.NeuralNetworkGenome.Weights = tNet.GetWeights();
 
-                 partTwo.OrganGenomes.Add(nog);
+                partTwo.OrganGenomes.Add(nog);
                 partTwo.Scale = new Vector3(0.8f, .2f, 0.8f);
 
                 partTwo.BodyPartGeometryIndex = 1;
@@ -339,7 +332,7 @@ namespace Aquarium
                 nog.InputGenome = new NeuralInputSocketPhenotype { Channel = 0, ChanneledSignalGenome = chanSig0 };
                 nog.OutputGenome = new NeuralOutputSocketPhenotype { Channel = 0, ChanneledSignalGenome = chanSig1 };
 
-                 tNet = new NeuralNetwork(nog.NeuralNetworkGenome.NumInputs, nog.NeuralNetworkGenome.NumHidden, nog.NeuralNetworkGenome.NumOutputs);
+                tNet = new NeuralNetwork(nog.NeuralNetworkGenome.NumInputs, nog.NeuralNetworkGenome.NumHidden, nog.NeuralNetworkGenome.NumOutputs);
                 tNet.RandomizeWeights(Random);
                 nog.NeuralNetworkGenome.Weights = tNet.GetWeights();
 
@@ -365,7 +358,7 @@ namespace Aquarium
                     nog.NeuralNetworkGenome = new NeuralNetworkPhenotype { NumInputs = 1, NumHidden = 1, NumOutputs = 1 };
                     nog.InputGenome = new NeuralInputSocketPhenotype { Channel = 0, ChanneledSignalGenome = chanSig1 };
                     nog.OutputGenome = new NeuralOutputSocketPhenotype { Channel = 0, ChanneledSignalGenome = chanSig2 };
-                     tNet = new NeuralNetwork(nog.NeuralNetworkGenome.NumInputs, nog.NeuralNetworkGenome.NumHidden, nog.NeuralNetworkGenome.NumOutputs);
+                    tNet = new NeuralNetwork(nog.NeuralNetworkGenome.NumInputs, nog.NeuralNetworkGenome.NumHidden, nog.NeuralNetworkGenome.NumOutputs);
                     tNet.RandomizeWeights(Random);
                     nog.NeuralNetworkGenome.Weights = tNet.GetWeights();
 
@@ -380,7 +373,7 @@ namespace Aquarium
 
             return g;
         }
-        
+
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -417,7 +410,7 @@ namespace Aquarium
         protected void SetupRenderContextAndCamera()
         {
             Camera = new EyeCamera();
-            
+
             Camera.Position = new Vector3(-1f, 0f, 10f);
             RenderContext = new RenderContext(
                 Camera,
@@ -481,7 +474,7 @@ namespace Aquarium
 
         }
 
-      
+
 
         /// <summary>
         /// This is called when the game should draw itself.

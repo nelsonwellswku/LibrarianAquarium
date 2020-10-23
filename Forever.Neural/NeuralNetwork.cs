@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Forever.Neural
 {
@@ -87,9 +85,6 @@ namespace Forever.Neural
 
         public void RandomizeWeights(Random random)
         {
-
-            int k = 0; // points into weights param
-
             for (int i = 0; i < NumInputs; ++i)
                 for (int j = 0; j < NumHidden; ++j)
                     ihWeights[i][j] = 2 * (random.NextDouble() - 0.5);
@@ -104,7 +99,7 @@ namespace Forever.Neural
             for (int i = 0; i < NumOutputs; ++i)
                 oBiases[i] = 2 * (random.NextDouble() - 0.5);
         }
-        
+
 
         public double[] GetWeights()
         {
@@ -174,7 +169,7 @@ namespace Forever.Neural
             double result;
 
             if (x < -45.0) result = 0;
-            else if (x > 45.0) result= 1.0;
+            else if (x > 45.0) result = 1.0;
             else result = 1.0 / (1.0 + Math.Exp(-x));
 
             return result;
@@ -254,7 +249,7 @@ namespace Forever.Neural
         } // UpdateWeights
 
 
-        public double Train(List<double> inputs, List<double>outputs, double learnRate = 0.001, double  momentum = 0.01, int maxEpochs = 1, double errorThresh = 0.001)
+        public double Train(List<double> inputs, List<double> outputs, double learnRate = 0.001, double momentum = 0.01, int maxEpochs = 1, double errorThresh = 0.001)
         {
             double[] yValues; // outputs
 
@@ -334,5 +329,5 @@ namespace Forever.Neural
 
     } // class Helpers
 
-    
+
 }
