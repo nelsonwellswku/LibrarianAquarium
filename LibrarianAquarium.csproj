@@ -1,113 +1,28 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CA292DF4-1FC0-439F-ACCE-494AEF053D18}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LibrarianAquarium</RootNamespace>
-    <AssemblyName>LibrarianAquarium</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <MonoGamePlatform>Windows</MonoGamePlatform>
-    <MonoGameContentBuilderExe>
-    </MonoGameContentBuilderExe>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Windows\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Windows\Release\</OutputPath>
-    <DefineConstants>TRACE;WINDOWS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <TieredCompilation>false</TieredCompilation>
   </PropertyGroup>
   <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Game1.cs" />
-    <Compile Include="GA\Bodies\Body.cs" />
-    <Compile Include="GA\Bodies\BodyPart.cs" />
-    <Compile Include="GA\Bodies\BodyPartSocket.cs" />
-    <Compile Include="GA\Bodies\NervousSystem.cs" />
-    <Compile Include="GA\BodyGenerator.cs" />
-    <Compile Include="GA\Codons\BodyCodonParser.cs" />
-    <Compile Include="GA\Codons\BodyEndCodon.cs" />
-    <Compile Include="GA\Codons\BodyPartCodon.cs" />
-    <Compile Include="GA\Codons\Codon.cs" />
-    <Compile Include="GA\Codons\CodonParser.cs" />
-    <Compile Include="GA\Fuzzy.cs" />
-    <Compile Include="GA\GeneParsers\BodyPartGeneParser.cs" />
-    <Compile Include="GA\GeneParsers\BodyPartHeader.cs" />
-    <Compile Include="GA\Genomes\BodyGenome.cs" />
-    <Compile Include="GA\Genomes\Gene.cs" />
-    <Compile Include="GA\Genomes\Genome.cs" />
-    <Compile Include="GA\Genomes\GenomeTemplate.cs" />
-    <Compile Include="GA\Organism.cs" />
-    <Compile Include="GA\Organs\NeuralOrgan.cs" />
-    <Compile Include="GA\Organs\Organ.cs" />
-    <Compile Include="GA\Organs\OrganAbilities\QueryPositionAbility.cs" />
-    <Compile Include="GA\Organs\OrganAbility.cs" />
-    <Compile Include="GA\Phenotypes\BodyPhenotype.cs" />
-    <Compile Include="GA\Phenotypes\IBodyPhenotype.cs" />
-    <Compile Include="GA\Phenotypes\PhenotypeReader.cs" />
-    <Compile Include="GA\Signals\ChanneledSignal.cs" />
-    <Compile Include="GA\Signals\ChannelReader.cs" />
-    <Compile Include="GA\Signals\ChannelWriter.cs" />
-    <Compile Include="GA\Signals\SignalNode.cs" />
-    <Compile Include="MathHelper.cs" />
-    <Compile Include="NaNny.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Remove="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework, Version=3.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\MonoGame.Framework.WindowsDX.3.3.0.0\lib\net40\MonoGame.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Icon.ico" />
+    <EmbeddedResource Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\TerminalFont.spritefont" />
-    <None Include="packages.config" />
+    <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Forever.Neural\Forever.Neural.csproj">
-      <Project>{82405bb9-5278-438c-bee4-cbf338dfd0a9}</Project>
-      <Name>Forever.Neural</Name>
-    </ProjectReference>
-    <ProjectReference Include="Forever.Render\Forever.Render.csproj">
-      <Project>{3c0bbef9-1075-4b83-9a79-930f81c345b3}</Project>
-      <Name>Forever.Render</Name>
-    </ProjectReference>
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />
+    <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
